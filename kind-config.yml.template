@@ -5,4 +5,5 @@ nodes:
   extraMounts:
   - hostPath: $PWD/postgres-data
     containerPath: /mnt/postgres-data
-
+  - hostPath: $PWD/gitlab-etc
+    containerPath: /mnt/gitlab-etc
