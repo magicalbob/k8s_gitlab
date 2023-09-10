@@ -38,7 +38,7 @@ spec:
               containerPort: 80
             - name: ssh
               containerPort: 22
-          command: ["/bin/sh", "-c", "echo \"letsencrypt['enable'] = false\" >> /etc/gitlab/gitlab.rb && echo \"gitlab_rails['initial_root_password'] = 'LetMeIn9'\" >> /etc/gitlab/gitlab.rb && echo \"external_url 'http://gitlab:80'\" >> /etc/gitlab/gitlab.rb; /assets/wrapper"]
+          command: ["/bin/sh", "-c", "echo \"letsencrypt['enable'] = false\" >> /etc/gitlab/gitlab.rb && echo \"gitlab_rails['initial_root_password'] = 'LetMeIn9'\" >> /etc/gitlab/gitlab.rb && echo \"external_url 'http://192.168.0.8:80'\" >> /etc/gitlab/gitlab.rb; /assets/wrapper"]
           resources:
             limits:
               memory: 4Gi
@@ -48,7 +48,7 @@ spec:
               cpu: 1
           volumeMounts:
             - name: gitlab-etc
-              mountPath: /etc
+              mountPath: /etc/gitlab
       volumes:
         - name: gitlab-etc
           persistentVolumeClaim:
