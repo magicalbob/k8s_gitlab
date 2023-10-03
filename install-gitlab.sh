@@ -49,18 +49,13 @@ fi
 IS_IT_KIND=$(kubectl get nodes|grep -v ^NAME|head -n1|cut -d\  -f1)
 if [ "${IS_IT_KIND}" == "kind-gitlab-control-plane" ];then
   export NODE_NAME=$(kubectl get nodes |grep control-plane|cut -d\  -f1|head -1)
-  envsubst < gitlab.postgres.pv.kind.yml.template > gitlab.pv.yml
   envsubst < gitlab.etc.pv.kind.yml.template >> gitlab.pv.yml
 else
   export NODE_NAME=$(kubectl get nodes | grep -v ^NAME|grep -v control-plane|cut -d\  -f1|head -1)
-  envsubst < gitlab.postgres.pv.linux.yml.template > gitlab.pv.yml
   envsubst < gitlab.etc.pv.linux.yml.template >> gitlab.pv.yml
-  echo mkdir -p ${PWD}/postgres-data|ssh -o StrictHostKeyChecking=no ${NODE_NAME}
 fi
 kubectl apply -f gitlab.pv.yml
 
-# Install gitlab postgres
-kubectl apply -f gitlab.postgres.yml -n gitlab
 
 # Install gitlab deployment
 kubectl apply -f gitlab.deploy.yml -n gitlab
