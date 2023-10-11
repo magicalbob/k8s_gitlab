@@ -30,8 +30,8 @@
 ##! address from AWS. For more details, see:
 ##! https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
 #external_url 'https://gitlab.ellisbs.co.uk'
-#external_url 'http://192.168.0.8'
-external_url 'http://t7610'
+external_url 'http://192.168.0.8'
+#external_url 'http://t7610'
 
 ## Roles for multi-instance GitLab
 ##! The default is to have no roles enabled, which results in GitLab running as an all-in-one instance.
