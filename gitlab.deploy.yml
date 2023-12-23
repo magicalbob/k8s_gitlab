@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: gitlab
-          image: gitlab/gitlab-ce:16.2.3-ce.0
+          image: gitlab/gitlab-ce:16.7.0-ce.0
           ports:
             - name: http
               containerPort: 80
