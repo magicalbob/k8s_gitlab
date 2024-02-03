@@ -50,9 +50,11 @@ IS_IT_KIND=$(kubectl get nodes|grep -v ^NAME|head -n1|cut -d\  -f1)
 if [ "${IS_IT_KIND}" == "kind-gitlab-control-plane" ];then
   export NODE_NAME=$(kubectl get nodes |grep control-plane|cut -d\  -f1|head -1)
   envsubst < gitlab.etc.pv.kind.yml.template > gitlab.pv.yml
+  envsubst < gitlab.data.pv.kind.yml.template >> gitlab.pv.yml
 else
   export NODE_NAME=$(kubectl get nodes | grep -v ^NAME|grep -v control-plane|cut -d\  -f1|head -1)
   envsubst < gitlab.etc.pv.linux.yml.template > gitlab.pv.yml
+  envsubst < gitlab.data.pv.linux.yml.template >> gitlab.pv.yml
 fi
 kubectl apply -f gitlab.pv.yml
 

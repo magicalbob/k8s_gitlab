@@ -1,7 +1,22 @@
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: gitlab-etc
+  namespace: gitlab
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: local-storage
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gitlab-data
   namespace: gitlab
 spec:
   accessModes:
@@ -32,7 +47,7 @@ spec:
     spec:
       containers:
         - name: gitlab
-          image: gitlab/gitlab-ce:16.7.0-ce.0
+          image: gitlab/gitlab-ce:16.8.1-ce.0
           ports:
             - name: http
               containerPort: 80
@@ -49,10 +64,15 @@ spec:
           volumeMounts:
             - name: gitlab-etc
               mountPath: /etc/gitlab
+            - name: gitlab-data
+              mountPath: /var/opt/gitlab
       volumes:
         - name: gitlab-etc
           persistentVolumeClaim:
             claimName: gitlab-etc
+        - name: gitlab-data
+          persistentVolumeClaim:
+            claimName: gitlab-data
 
 ---
 

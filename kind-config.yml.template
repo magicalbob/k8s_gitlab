@@ -7,3 +7,5 @@ nodes:
     containerPath: /mnt/postgres-data
   - hostPath: $PWD/gitlab-etc
     containerPath: /mnt/gitlab-etc
+  - hostPath: $PWD/gitlab-data
+    containerPath: /mnt/gitlab-data
