@@ -53,7 +53,6 @@ spec:
               containerPort: 80
             - name: ssh
               containerPort: 22
-          command: ["/bin/sh", "-c", "echo \"letsencrypt['enable'] = false\" > /etc/gitlab/gitlab.rb && echo \"postgresql['enable'] = false\" >> /etc/gitlab/gitlab.rb && echo \"gitlab_rails['initial_root_password'] = 'LetMeIn9'\" >> /etc/gitlab/gitlab.rb && echo \"external_url 'http://192.168.0.10:80'\" >> /etc/gitlab/gitlab.rb && echo \"gitlab_rails['db_adapter'] = 'postgresql'\" >> /etc/gitlab/gitlab.rb && echo \"gitlab_rails['db_encoding'] = 'utf8'\" >> /etc/gitlab/gitlab.rb && echo \"gitlab_rails['db_host'] = '192.168.0.10'\" >> /etc/gitlab/gitlab.rb && echo \"gitlab_rails['db_port'] = '5432'\" >> /etc/gitlab/gitlab.rb && echo \"gitlab_rails['db_username'] = 'gitlab'\" >> /etc/gitlab/gitlab.rb && echo \"gitlab_rails['db_password'] = 'LetMeIn9'\" >> /etc/gitlab/gitlab.rb && echo \"gitlab_rails['db_database'] = 'gitlabhq_production'\" >> /etc/gitlab/gitlab.rb; /assets/wrapper"]
           resources:
             limits:
               memory: 8Gi
@@ -66,6 +65,14 @@ spec:
               mountPath: /etc/gitlab
             - name: gitlab-data
               mountPath: /var/opt/gitlab
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+          - 8.8.4.4
+        options:
+          - name: ndots
+            value: "5"
       volumes:
         - name: gitlab-etc
           persistentVolumeClaim:
